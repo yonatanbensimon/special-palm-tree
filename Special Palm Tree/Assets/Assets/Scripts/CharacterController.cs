@@ -7,6 +7,9 @@ public class CharacterController : MonoBehaviour
     
     private Vector2 moveInput;
     private LightController nearbyLight;
+    private BearTrapController nearbyBear;
+
+    private InventoryManager  inventory;
 
     public void OnMove(InputValue value)
     {
@@ -15,9 +18,15 @@ public class CharacterController : MonoBehaviour
 
     public void OnInteract(InputValue value)
     {
-        if (value.isPressed && nearbyLight != null)
+        if (!value.isPressed) return;
+
+        if (nearbyLight != null)
         {
             nearbyLight.increaseLight();
+        } else if (nearbyBear != null)
+        {
+            nearbyBear.Collect(inventory);
+            nearbyBear = null;
         }
     }
 
@@ -28,11 +37,18 @@ public class CharacterController : MonoBehaviour
         transform.position += movement * playerSpeed * Time.deltaTime;
     }
 
+    void Start()
+    {
+        inventory = GetComponent<InventoryManager>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent<LightController>(out var light))
         {
             nearbyLight = light;
+        } else if (other.TryGetComponent<BearTrapController>(out var bear)){
+            nearbyBear = bear;
         }
     }
 
@@ -43,6 +59,12 @@ public class CharacterController : MonoBehaviour
             if (nearbyLight == light)
             {
                 nearbyLight = null;
+            }
+        } else if (other.TryGetComponent<BearTrapController>(out var bear))
+        {
+            if (nearbyBear == bear)
+            {
+                nearbyBear = null;
             }
         }
     }
