@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c26c81347fc8b7041885d7c027fcf6e7
+guid: d60fde6158be56546ad2c91cfc20699f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5063045002273385455
-    second: Tile Prototype_0
+      213: -2310295310781311402
+    second: FLOOR_TILE_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,17 +46,17 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.4}
+  spritePixelsToUnits: 1300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -113,33 +113,37 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tile Prototype_0
+      name: FLOOR_TILE_0
       rect:
         serializedVersion: 2
-        x: 60
-        y: 207
-        width: 1862
-        height: 1555
+        x: 342
+        y: 423
+        width: 1315
+        height: 669
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1149da545637cb9b0800000000000000
-      internalID: -5063045002273385455
+      spriteID: 65611a2c7ae20ffd0800000000000000
+      internalID: -2310295310781311402
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
     customData: 
-    physicsShape: []
+    physicsShape:
+    - - {x: -19, y: -572}
+      - {x: 667, y: -241}
+      - {x: -9, y: 90}
+      - {x: -672, y: -248}
     bones: []
-    spriteID: 
-    internalID: 0
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -148,7 +152,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Tile Prototype_0: -5063045002273385455
+      FLOOR_TILE_0: -2310295310781311402
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
