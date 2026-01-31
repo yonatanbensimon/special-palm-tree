@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
+
 
 public class CharacterController : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class CharacterController : MonoBehaviour
     private BearTrapController nearbyBear;
 
     private InventoryManager  inventory;
+    private Light2D playerLight;
+    private bool isLightOn = true;
 
     public void OnMove(InputValue value)
     {
@@ -30,6 +34,22 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+    public void OnBlow(InputValue value)
+    {
+        if (!value.isPressed) return;
+
+        if (isLightOn)
+        {
+            playerLight.intensity = 0.1f;
+            isLightOn = false;
+        } else
+        {
+            playerLight.intensity = 1.0f;
+            isLightOn = true;
+        }
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -40,6 +60,7 @@ public class CharacterController : MonoBehaviour
     void Start()
     {
         inventory = GetComponent<InventoryManager>();
+        playerLight = GetComponentInChildren<Light2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
