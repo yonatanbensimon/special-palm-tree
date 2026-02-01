@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/FINAL_SCENES/MazeScene.unity
     guid: 13c623c23b0bdd64eb48f2f10e063cf3
+  - enabled: 1
+    path: Assets/FINAL_SCENES/Game_Over_Scene.unity
+    guid: e49e82ec13fa047ed9caee545b61a100
+  - enabled: 1
+    path: Assets/FINAL_SCENES/TitlePageScene.unity
+    guid: 0888495bbdc804311af3eab74e24662a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
