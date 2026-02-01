@@ -12,6 +12,7 @@ public class HorseAI : MonoBehaviour
     public float chaseTime = 2f;    
     public float horseSpeed = 3.5f; 
     public float chasingHorseSpeed = 4.5f;
+    public float chasingEnragedHorseSpeed = 6.0f;
 
     private UnityEngine.AI.NavMeshAgent agent;
     private LightController targetLight;
@@ -55,16 +56,18 @@ public class HorseAI : MonoBehaviour
         HandlePlayerDetection();
 
         if (isOnALight) return;
+        
+        bool isEnraged = (health == 1);
 
         if (chasingTImer > 0)
         {
-            agent.speed = chasingHorseSpeed;
+            agent.speed = isEnraged ? chasingEnragedHorseSpeed : chasingHorseSpeed;
             agent.isStopped = false;
             agent.SetDestination(player.position);
             targetLight = null;
         } else
         {
-            agent.speed = horseSpeed;
+            agent.speed = isEnraged ? chasingHorseSpeed : horseSpeed;
             HandleCandleHunting();
         }
     }
