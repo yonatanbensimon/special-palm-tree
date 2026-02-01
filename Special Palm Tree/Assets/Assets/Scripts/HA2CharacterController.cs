@@ -86,9 +86,9 @@ public class HA2CharacterController : MonoBehaviour
         if (!isLightOn)
         {
             sanity -= Time.deltaTime * sanityLossModifier;
-            var gd = GUI.Data;
+            var gd = HUD.Data;
             gd.playerSanity = sanity;
-            GUI.Data = gd;
+            HUD.Data = gd;
             sanityRechargeDelayTimer = sanityRechargeDelay;
         }
         else if (sanity < 1.0f)
@@ -97,9 +97,9 @@ public class HA2CharacterController : MonoBehaviour
             if (sanityRechargeDelay <= 0.0f)
             {
                 sanity += Time.deltaTime * sanityRechargeModifier;
-                var gd = GUI.Data;
+                var gd = HUD.Data;
                 gd.playerSanity = sanity;
-                GUI.Data = gd;
+                HUD.Data = gd;
             }
         }
     }
@@ -160,9 +160,9 @@ public class HA2CharacterController : MonoBehaviour
     public void TakeDamage()
     {
         health--;
-        var gd = GUI.Data;
+        var gd = HUD.Data;
         gd.playerHealth = health;
-        GUI.Data = gd;
+        HUD.Data = gd;
 
         if (health <= 0)
         {
