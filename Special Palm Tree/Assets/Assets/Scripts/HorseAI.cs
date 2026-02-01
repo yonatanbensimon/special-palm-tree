@@ -81,33 +81,74 @@ public class HorseAI : MonoBehaviour
     }
 }
     void HandleCandleHunting()
+{
+    if (targetLight == null || targetLight.isExtinguished || !targetLight.isOn)
     {
-        if (targetLight == null || targetLight.isExtinguished || !targetLight.isOn)
+        FindNewTarget();
+    }
+
+    if (agent.hasPath)
+    {
+        agent.isStopped = false;
+
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.1f)
         {
-            FindNewTarget();
-        } else {
-
-                agent.SetDestination(targetLight.transform.position);
-
-                if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.1f)
+            if (targetLight == null)
+            {
+               //HERE IS COLLISION WITH THE PLAYER
+               print("player collided");
+            }
+            else
             {
                 StartCoroutine(ProcessLight());
             }
         }
     }
+}
 
     void FindNewTarget()
     {
-        LightController[] allLights = Object.FindObjectsByType<LightController>(FindObjectsSortMode.None);
+        List<LightController> allCandles = Object.FindObjectsByType<LightController>(FindObjectsSortMode.None)
+            .Where(l => l.isOn && !l.isExtinguished)
+            .ToList();
 
-        var validLights = allLights
-        .Where(l => l.isOn && !l.isExtinguished)
-        .OrderBy(l => Vector2.Distance(transform.position, l.transform.position))
-        .ToList();
+        CharacterController playerController = player.GetComponent<CharacterController>();
+        
+        Vector3 bestTargetPos = Vector3.zero;
+        float closestDistance = float.MaxValue;
+        targetLight = null; 
 
-        if (validLights.Count > 0)
+        foreach (var candle in allCandles)
         {
-            targetLight = validLights[0];
+            float dist = Vector2.Distance(transform.position, candle.transform.position);
+            if (dist < closestDistance)
+            {
+                closestDistance = dist;
+                targetLight = candle;
+                bestTargetPos = candle.transform.position;
+            }
+        }
+
+        if (playerController != null)
+        {
+            if (playerController.IsLightOn()) 
+            {
+                float distToPlayer = Vector2.Distance(transform.position, player.position);
+                if (distToPlayer < closestDistance)
+                {
+                    closestDistance = distToPlayer;
+                    targetLight = null; 
+                    bestTargetPos = player.position;
+                }
+            }
+        }
+
+        if (bestTargetPos != Vector3.zero)
+        {
+            agent.SetDestination(bestTargetPos);
+        } else
+        {
+            agent.isStopped = true;
         }
     }
 

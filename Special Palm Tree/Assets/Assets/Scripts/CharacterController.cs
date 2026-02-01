@@ -13,7 +13,7 @@ public class CharacterController : MonoBehaviour
 
     private InventoryManager  inventory;
     private Light2D playerLight;
-    private bool isLightOn = true;
+    public bool isLightOn = true;
 
     public void OnMove(InputValue value)
     {
@@ -40,11 +40,9 @@ public class CharacterController : MonoBehaviour
 
         if (isLightOn)
         {
-            playerLight.intensity = 0.1f;
             isLightOn = false;
         } else
         {
-            playerLight.intensity = 1.0f;
             isLightOn = true;
         }
 
@@ -55,6 +53,14 @@ public class CharacterController : MonoBehaviour
     {
         Vector3 movement = new Vector3(moveInput.x, moveInput.y, 0);
         transform.position += movement * playerSpeed * Time.deltaTime;
+
+        if (!isLightOn)
+        {
+            playerLight.intensity = 0.1f;
+        } else
+        {
+            playerLight.intensity = 1.0f;
+        }
     }
 
     void Start()
@@ -88,5 +94,10 @@ public class CharacterController : MonoBehaviour
                 nearbyBear = null;
             }
         }
+    }
+
+    public bool IsLightOn()
+    {
+        return isLightOn;
     }
 }

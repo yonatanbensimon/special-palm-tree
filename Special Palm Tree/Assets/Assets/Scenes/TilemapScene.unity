@@ -1487,6 +1487,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5898007082073547913, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
+      propertyPath: isLightOn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8120813388616607974, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -3296,7 +3300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HorseAI
   detectionRadius: 1
   chaseTime: 2
-  player: {fileID: 0}
+  player: {fileID: 1624840307}
   horseSpeed: 2.5
   playerLayer:
     serializedVersion: 2
