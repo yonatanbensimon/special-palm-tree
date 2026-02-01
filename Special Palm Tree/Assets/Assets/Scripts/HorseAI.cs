@@ -4,6 +4,8 @@ using UnityEngine.Rendering.Universal;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.SceneManagement;
+
 
 public class HorseAI : MonoBehaviour
 {
@@ -301,7 +303,18 @@ public class HorseAI : MonoBehaviour
 
     void Die()
     {
-        print("WTF, you killed Charlotte Jr...");
+        if (PersistentGameData.Instance != null)
+        {
+            PersistentGameData.Instance.accessories.Clear();
+        }
+
+        var gd = HUD.Data;
+        gd.horseHealth = 1f; 
+        gd.playerHealth = 3; 
+        gd.playerSanity = 1f;
+        HUD.Data = gd;
+        
+        SceneManager.LoadScene("");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

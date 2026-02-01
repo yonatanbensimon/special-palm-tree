@@ -241,6 +241,17 @@ public class HA2CharacterController : MonoBehaviour
 
     public void Die()
     {
-        print("Welp, you died ig");
+        if (PersistentGameData.Instance != null)
+        {
+            PersistentGameData.Instance.accessories.Clear();
+        }
+
+        var gd = HUD.Data;
+        gd.playerHealth = 3;   
+        gd.playerSanity = 1.0f;
+        gd.horseHealth = 1.0f;
+        HUD.Data = gd;
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Game_Over_Scene");
     }
 }
