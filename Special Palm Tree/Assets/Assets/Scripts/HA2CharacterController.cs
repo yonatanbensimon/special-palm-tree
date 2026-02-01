@@ -20,7 +20,7 @@ public class HA2CharacterController : MonoBehaviour
     private InventoryManager inventory;
     private Light2D playerLight;
     [SerializeField] private bool isLightOn = true;
-    public float brightLight = 1.0f;
+    public float brightLight = 1.5f;
 
     int health;
     float sanity = 1.0f;
@@ -122,10 +122,13 @@ public class HA2CharacterController : MonoBehaviour
     {
         if (other.TryGetComponent<LightController>(out var light))
         {
+            if (nearbyLight && nearbyLight != light) nearbyLight.SetHighlight(false);
             nearbyLight = light;
             nearbyLight.SetHighlight(true);
         } else if (other.TryGetComponent<BearTrapController>(out var bear)){
+            if (nearbyBear && nearbyBear != bear) nearbyBear.SetHighlight(false);
             nearbyBear = bear;
+            nearbyBear.SetHighlight(true);
         }
     }
 
@@ -142,6 +145,7 @@ public class HA2CharacterController : MonoBehaviour
         {
             if (nearbyBear == bear)
             {
+                nearbyBear.SetHighlight(false);
                 nearbyBear = null;
             }
         }
