@@ -10,6 +10,8 @@ public class HorseTransition : MonoBehaviour
     public float fadeDuration = 1f;
     public string gameSceneName = "GameScene";
     public AccessoryManager accessoryManager;
+    public Transform redEyes;
+
     public void PlayTransition()
     {
         HorseImage.gameObject.SetActive(false);
@@ -42,6 +44,8 @@ public class HorseTransition : MonoBehaviour
         float timer = 0f;
         Color overlayColor = blackOverlay.color;
         blackOverlay.gameObject.SetActive(true);
+        redEyes.SetParent(blackOverlay.gameObject.transform);
+
         while (timer < fadeDuration)
         {
             timer+=Time.deltaTime;
