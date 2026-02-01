@@ -21,6 +21,7 @@ public class HorseAI : MonoBehaviour
     public LayerMask playerLayer;   
     public LayerMask obstacleLayer;
 
+    public int maxHealth = 5;
     public int health = 5;
 
     void Awake()
@@ -47,6 +48,11 @@ public class HorseAI : MonoBehaviour
         {
             HandleCandleHunting();
         }
+    }
+
+    private void Start()
+    {
+        health = maxHealth;
     }
 
     void HandlePlayerDetection()
@@ -195,7 +201,7 @@ public class HorseAI : MonoBehaviour
         // Audio cue + delay
         health--;
         var gd = HUD.Data;
-        gd.horseHealth = health;
+        gd.horseHealth = health/maxHealth;
         HUD.Data = gd;
 
         if (health < 0)

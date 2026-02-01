@@ -83,7 +83,7 @@ public class HA2CharacterController : MonoBehaviour
         Vector3 movement = new Vector3(moveInput.x, moveInput.y, 0);
         transform.position += movement * playerSpeed * Time.deltaTime;
 
-        if (!isLightOn)
+        if (!IsInLight())
         {
             sanity -= Time.deltaTime * sanityLossModifier;
             var gd = HUD.Data;
@@ -94,7 +94,7 @@ public class HA2CharacterController : MonoBehaviour
         else if (sanity < 1.0f)
         {
             sanityRechargeDelayTimer -= Time.deltaTime;
-            if (sanityRechargeDelay <= 0.0f)
+            if (sanityRechargeDelayTimer <= 0.0f)
             {
                 sanity += Time.deltaTime * sanityRechargeModifier;
                 var gd = HUD.Data;
@@ -111,6 +111,9 @@ public class HA2CharacterController : MonoBehaviour
 
         CandleMicrophone.OnBlow += OnBlow;
         sanityRechargeDelayTimer = sanityRechargeDelay;
+        isLightOn = true;
+        sanity = 1.0f;
+        HUD.Refresh();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -143,6 +146,11 @@ public class HA2CharacterController : MonoBehaviour
     public bool IsLightOn()
     {
         return isLightOn;
+    }
+
+    public bool IsInLight()
+    {
+        return IsLightOn() || nearbyLight?.isOn == true;
     }
 
     private IEnumerator ChangeLightSequence(bool on)
