@@ -30,9 +30,12 @@ public class HorseAI : MonoBehaviour
     public int maxHealth = 5;
     public int health = 5;
 
+    private HorseVisuals visuals;
+
     void Awake()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        visuals = GetComponent<HorseVisuals>();
 
         if (player == null)
     {
@@ -54,6 +57,7 @@ public class HorseAI : MonoBehaviour
     void Update()
     {
         HandlePlayerDetection();
+        UpdateSpriteDirection();
 
         if (isOnALight) return;
         
@@ -71,6 +75,30 @@ public class HorseAI : MonoBehaviour
             HandleCandleHunting();
         }
     }
+
+    void UpdateSpriteDirection()
+{
+    Vector2 velocity = agent.velocity;
+
+    if (velocity.magnitude < 0.1f) return;
+
+    if (Mathf.Abs(velocity.x) > Mathf.Abs(velocity.y))
+    {
+        visuals.sideHorse.SetActive(true);
+        visuals.upHorse.SetActive(false);
+
+        float flipX = velocity.x > 0 ? 1f : -1f * Mathf.Abs(visuals.sideHorse.transform.localScale.x);
+        visuals.sideHorse.transform.localScale = new Vector3(flipX, visuals.sideHorse.transform.localScale.y, 1f);
+    }
+    else
+    {
+        visuals.sideHorse.SetActive(false);
+        visuals.upHorse.SetActive(true);
+
+        float flipY = velocity.y > 0 ? 1f : -1f * Mathf.Abs(visuals.upHorse.transform.localScale.x);
+        visuals.upHorse.transform.localScale = new Vector3(flipY,visuals.upHorse.transform.localScale.y, 1f);
+    }
+}
 
     private void Start()
     {
