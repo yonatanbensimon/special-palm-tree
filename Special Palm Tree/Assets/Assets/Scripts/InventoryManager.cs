@@ -7,6 +7,10 @@ public class InventoryManager : MonoBehaviour
     public void AddTrap()
     {
         bearTrapsCounter++;
+        var gd = GUI.Data;
+        gd.numBearTraps = bearTrapsCounter;
+        GUI.Data = gd;
+
     }
 
     public bool UseTrap()
@@ -14,6 +18,9 @@ public class InventoryManager : MonoBehaviour
         if (bearTrapsCounter <= 0) return false;
         
         bearTrapsCounter--;
+        var gd = GUI.Data;
+        gd.numBearTraps = bearTrapsCounter;
+        GUI.Data = gd;
         return true;
     }
 }

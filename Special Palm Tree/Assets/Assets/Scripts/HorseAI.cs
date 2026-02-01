@@ -194,6 +194,10 @@ public class HorseAI : MonoBehaviour
     {
         // Audio cue + delay
         health--;
+        var gd = GUI.Data;
+        gd.horseHealth = health;
+        GUI.Data = gd;
+
         if (health < 0)
         {
             Die();
