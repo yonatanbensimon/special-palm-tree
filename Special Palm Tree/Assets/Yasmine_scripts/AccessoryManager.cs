@@ -7,17 +7,25 @@ public class AccessoryManager : MonoBehaviour
     public GameObject hat;
     public GameObject unicorn;
 
-    [Header("Bodywear")]
+    [Header("BodywearUpper")]
     public GameObject chain;
     public GameObject ribbonBlack;
+    [Header("BodywearLower")]
     public GameObject tutu;
     public Dictionary<string, string> currentAccessories = new Dictionary<string, string>();
     public void ToggleRibbonBlack()
     {
         bool isActive = ribbonBlack.activeSelf;
-        DisableAllBodywear();
+        DisableUpperBodywear();
         ribbonBlack.SetActive(!isActive);
-        currentAccessories["Bodywear"] = !isActive ? "RibbonImage" : "None";
+        currentAccessories["BodywearUpper"] = !isActive ? "RibbonImage" : "None";
+    }
+
+    void Awake()
+    {
+        currentAccessories["Headware"] = "None";
+        currentAccessories["BodywearUpper"] = "None";
+        currentAccessories["BodywearLower"] = "None";
     }
 
     public void ToggleUnicorn()
@@ -38,15 +46,15 @@ public class AccessoryManager : MonoBehaviour
     public void ToggleChain()
     {
         bool isActive = chain.activeSelf;
-        DisableAllBodywear();
+        DisableUpperBodywear();
         chain.SetActive(!isActive);
-        currentAccessories["Bodywear"] = !isActive ? "ChainImage" : "None";
+        currentAccessories["BodywearUpper"] = !isActive ? "ChainImage" : "None";
     }
     public void ToggleTutu()
     {
         bool isActive = tutu.activeSelf;
         tutu.SetActive(!tutu.activeSelf);
-        currentAccessories["Bodywear"] = !isActive ? "TutuImage" : "None";
+        currentAccessories["BodywearLower"] = !isActive ? "TutuImage" : "None";
     }
 
     void DisableAllHeadware()
@@ -54,7 +62,7 @@ public class AccessoryManager : MonoBehaviour
         hat.SetActive(false);
         unicorn.SetActive(false);
     }
-    void DisableAllBodywear()
+    void DisableUpperBodywear()
     {
         chain.SetActive(false);
         ribbonBlack.SetActive(false);
