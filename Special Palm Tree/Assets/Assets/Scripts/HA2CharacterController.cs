@@ -7,15 +7,24 @@ using UnityEngine.Rendering.Universal;
 public class HA2CharacterController : MonoBehaviour
 {
     public float playerSpeed = 4f;
-    
+
     private Vector2 moveInput;
     private LightController nearbyLight;
     private BearTrapController nearbyBear;
+    [SerializeField] GameObject beartrapPrefab;
 
-    private InventoryManager  inventory;
+    private InventoryManager inventory;
     private Light2D playerLight;
     [SerializeField] private bool isLightOn = true;
     public float brightLight = 1.0f;
+
+    int health;
+    float sanity = 1.0f;
+    public float sanityLossModifier = 1.0f;
+    public float sanityRechargeModifier = 1.0f;
+    public float sanityRechargeDelay = 1.0f;
+    float sanityRechargeDelayTimer;
+
 
     public void OnMove(InputValue value)
     {
@@ -58,11 +67,41 @@ public class HA2CharacterController : MonoBehaviour
         StartCoroutine(ChangeLightSequence(true));
     }
 
+    public void OnPlaceTrap(InputValue value)
+    {
+        if (!value.isPressed) { return; }
+        if (nearbyLight == null || !nearbyLight.isOn) { return; }
+        if (inventory.UseTrap())
+        {
+            Instantiate(beartrapPrefab, transform.position, transform.rotation);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         Vector3 movement = new Vector3(moveInput.x, moveInput.y, 0);
         transform.position += movement * playerSpeed * Time.deltaTime;
+
+        if (!isLightOn)
+        {
+            sanity -= Time.deltaTime * sanityLossModifier;
+            var gd = GUI.Data;
+            gd.playerSanity = sanity;
+            GUI.Data = gd;
+            sanityRechargeDelayTimer = sanityRechargeDelay;
+        }
+        else if (sanity < 1.0f)
+        {
+            sanityRechargeDelayTimer -= Time.deltaTime;
+            if (sanityRechargeDelay <= 0.0f)
+            {
+                sanity += Time.deltaTime * sanityRechargeModifier;
+                var gd = GUI.Data;
+                gd.playerSanity = sanity;
+                GUI.Data = gd;
+            }
+        }
     }
 
     void Start()
@@ -71,6 +110,7 @@ public class HA2CharacterController : MonoBehaviour
         playerLight = GetComponentInChildren<Light2D>();
 
         CandleMicrophone.OnBlow += OnBlow;
+        sanityRechargeDelayTimer = sanityRechargeDelay;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -115,5 +155,23 @@ public class HA2CharacterController : MonoBehaviour
         }
 
         isLightOn = on;
+    }
+
+    public void TakeDamage()
+    {
+        health--;
+        var gd = GUI.Data;
+        gd.playerHealth = health;
+        GUI.Data = gd;
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        print("Welp, you died ig");
     }
 }

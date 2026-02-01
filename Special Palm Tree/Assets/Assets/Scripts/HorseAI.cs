@@ -21,6 +21,8 @@ public class HorseAI : MonoBehaviour
     public LayerMask playerLayer;   
     public LayerMask obstacleLayer;
 
+    public int health = 5;
+
     void Awake()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -186,6 +188,25 @@ public class HorseAI : MonoBehaviour
         Vector3 nextPos = agent.nextPosition;
         transform.position = new Vector3(nextPos.x, nextPos.y, 0f);
         agent.nextPosition = transform.position;
+    }
+
+    public void TakeDamage()
+    {
+        // Audio cue + delay
+        health--;
+        var gd = GUI.Data;
+        gd.horseHealth = health;
+        GUI.Data = gd;
+
+        if (health < 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        print("WTF, you killed Charlotte Jr...");
     }
 
     // Visual aid in the editor to see the detection range
