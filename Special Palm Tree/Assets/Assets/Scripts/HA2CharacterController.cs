@@ -7,12 +7,13 @@ using UnityEngine.Rendering.Universal;
 public class HA2CharacterController : MonoBehaviour
 {
     public float playerSpeed = 4f;
-    
+
     private Vector2 moveInput;
     private LightController nearbyLight;
     private BearTrapController nearbyBear;
+    [SerializeField] GameObject beartrapPrefab;
 
-    private InventoryManager  inventory;
+    private InventoryManager inventory;
     private Light2D playerLight;
     [SerializeField] private bool isLightOn = true;
     public float brightLight = 1.0f;
@@ -56,6 +57,16 @@ public class HA2CharacterController : MonoBehaviour
     {
         if (!value.isPressed) { return; }
         StartCoroutine(ChangeLightSequence(true));
+    }
+
+    public void OnPlaceTrap(InputValue value)
+    {
+        if (!value.isPressed) { return; }
+        if (nearbyLight == null || !nearbyLight.isOn) { return; }
+        if (inventory.UseTrap())
+        {
+            Instantiate(beartrapPrefab, transform.position, transform.rotation);
+        }
     }
 
     // Update is called once per frame

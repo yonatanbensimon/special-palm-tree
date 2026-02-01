@@ -8,4 +8,12 @@ public class InventoryManager : MonoBehaviour
     {
         bearTrapsCounter++;
     }
+
+    public bool UseTrap()
+    {
+        if (bearTrapsCounter <= 0) return false;
+        
+        bearTrapsCounter--;
+        return true;
+    }
 }
