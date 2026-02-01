@@ -121,6 +121,7 @@ public class HA2CharacterController : MonoBehaviour
         if (other.TryGetComponent<LightController>(out var light))
         {
             nearbyLight = light;
+            nearbyLight.SetHighlight(true);
         } else if (other.TryGetComponent<BearTrapController>(out var bear)){
             nearbyBear = bear;
         }
@@ -132,6 +133,7 @@ public class HA2CharacterController : MonoBehaviour
         {
             if (nearbyLight == light)
             {
+                nearbyLight.SetHighlight(false);
                 nearbyLight = null;
             }
         } else if (other.TryGetComponent<BearTrapController>(out var bear))

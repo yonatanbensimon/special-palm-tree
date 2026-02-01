@@ -27,6 +27,18 @@ public class HorseAI : MonoBehaviour
     void Awake()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+
+        if (player == null)
+    {
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
+
+    }
+
         agent.updatePosition = false;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
