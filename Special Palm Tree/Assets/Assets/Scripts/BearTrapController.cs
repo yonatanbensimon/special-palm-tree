@@ -38,6 +38,8 @@ public class BearTrapController : MonoBehaviour
             horse.TakeDamage();
             isSet = false;
             SetHighlight(isHighlighted);
+            // Destroy Beartrap if we want
+            Destroy(gameObject);
         }
 
     }
