@@ -23,6 +23,11 @@ public class HA2CharacterController : MonoBehaviour
     [SerializeField] private bool isLightOn = true;
     public float brightLight = 1.5f;
 
+    [SerializeField] AudioClip candleOn;
+    [SerializeField] AudioClip candleOff;
+
+    [SerializeField] AudioSource heartbeat;
+
     int health;
     float sanity = 1.0f;
     
@@ -119,6 +124,10 @@ public class HA2CharacterController : MonoBehaviour
                 HUD.Data = gd;
             }
         }
+
+        float volumeT = Mathf.InverseLerp(1.0f, 0.0f, sanity);
+        float volume = Mathf.Lerp(0.4f, 1.0f, volumeT);
+        heartbeat.volume = volume;
     }
 
     void Start()
@@ -189,6 +198,8 @@ public class HA2CharacterController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
+        if (on) AudioSource.PlayClipAtPoint(candleOn, transform.position);
+        else AudioSource.PlayClipAtPoint(candleOff, transform.position);
         isLightOn = on;
         _psa.CandleOn(on);
     }

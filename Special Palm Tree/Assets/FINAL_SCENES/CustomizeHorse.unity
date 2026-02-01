@@ -500,6 +500,7 @@ MonoBehaviour:
   chain: {fileID: 1420638465}
   ribbonBlack: {fileID: 690340287}
   tutu: {fileID: 852799709}
+  clickClip: {fileID: 8300000, guid: 3a2aaaa2f2754894c9ce2c202279df3f, type: 3}
 --- !u!114 &210585236
 MonoBehaviour:
   m_ObjectHideFlags: 0
