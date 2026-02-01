@@ -27,7 +27,7 @@ public class CandleMicrophone : MonoBehaviour
     {
         _micLoudness = CheckMicrophoneVolume();
         float average = 0;
-        _lastTenFrames.Enqueue(average);
+        _lastTenFrames.Enqueue(_micLoudness);
         while (_lastTenFrames.Count > 10) _lastTenFrames.Dequeue();
         foreach (var frame in _lastTenFrames)
         {

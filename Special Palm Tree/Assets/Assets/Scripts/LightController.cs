@@ -17,8 +17,7 @@ public class LightController : MonoBehaviour
 
     public void increaseLight()
     {
-        targetLight.intensity = brightLight;
-        isOn = true;
+        StartCoroutine(ChangeLightSequence(true));
     }
 
     public void Extinguish()
@@ -31,8 +30,24 @@ public class LightController : MonoBehaviour
     private IEnumerator ExtinguishSequence()
     {
         isExtinguished = true;
-        yield return new WaitForSeconds(30f);
-        targetLight.intensity = 0.1f;
-        isOn = false;
+        yield return new WaitForSeconds(1f);
+        TurnOff();
+    }
+
+    private void TurnOff()
+    {
+        StartCoroutine(ChangeLightSequence(false));
+    }
+
+    private IEnumerator ChangeLightSequence(bool on)
+    {
+        float target = on ? brightLight : 0.1f;
+        while (!Mathf.Approximately(targetLight.intensity - target, 0.0f))
+        {
+            targetLight.intensity = Mathf.MoveTowards(targetLight.intensity, target, Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+
+        isOn = on;
     }
 }

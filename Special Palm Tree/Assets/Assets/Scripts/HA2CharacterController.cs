@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -13,7 +14,8 @@ public class HA2CharacterController : MonoBehaviour
 
     private InventoryManager  inventory;
     private Light2D playerLight;
-    public bool isLightOn = true;
+    [SerializeField] private bool isLightOn = true;
+    public float brightLight = 1.0f;
 
     public void OnMove(InputValue value)
     {
@@ -36,16 +38,24 @@ public class HA2CharacterController : MonoBehaviour
 
     public void OnBlow(InputValue value)
     {
-        if (!value.isPressed) return;
+        if (!value.isPressed) { return; }
+        OnBlow();
+    }
 
-        if (isLightOn)
-        {
-            isLightOn = false;
-        } else
-        {
-            isLightOn = true;
-        }
+    public void OnBlow(float _intensity)
+    {
+        OnBlow();
+    }
 
+    private void OnBlow()
+    {
+        StartCoroutine(ChangeLightSequence(false));
+    }
+
+    public void OnIgnite(InputValue value)
+    {
+        if (!value.isPressed) { return; }
+        StartCoroutine(ChangeLightSequence(true));
     }
 
     // Update is called once per frame
@@ -53,20 +63,14 @@ public class HA2CharacterController : MonoBehaviour
     {
         Vector3 movement = new Vector3(moveInput.x, moveInput.y, 0);
         transform.position += movement * playerSpeed * Time.deltaTime;
-
-        if (!isLightOn)
-        {
-            playerLight.intensity = 0.1f;
-        } else
-        {
-            playerLight.intensity = 1.0f;
-        }
     }
 
     void Start()
     {
         inventory = GetComponent<InventoryManager>();
         playerLight = GetComponentInChildren<Light2D>();
+
+        CandleMicrophone.OnBlow += OnBlow;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -99,5 +103,17 @@ public class HA2CharacterController : MonoBehaviour
     public bool IsLightOn()
     {
         return isLightOn;
+    }
+
+    private IEnumerator ChangeLightSequence(bool on)
+    {
+        float target = on ? brightLight : 0.1f;
+        while (!Mathf.Approximately(playerLight.intensity - target, 0.0f))
+        {
+            playerLight.intensity = Mathf.MoveTowards(playerLight.intensity, target, Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+
+        isLightOn = on;
     }
 }
