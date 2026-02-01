@@ -16,6 +16,7 @@ public class HA2CharacterController : MonoBehaviour
     private LightController nearbyLight;
     private BearTrapController nearbyBear;
     [SerializeField] GameObject beartrapPrefab;
+    private PlayerSpriteAnimator _psa;
 
     private InventoryManager inventory;
     private Light2D playerLight;
@@ -84,6 +85,16 @@ public class HA2CharacterController : MonoBehaviour
     {
         Vector3 movement = new Vector3(moveInput.x, moveInput.y, 0);
         transform.position += movement * playerSpeed * Time.deltaTime;
+        _psa.Running(!Mathf.Approximately(0, movement.sqrMagnitude));
+        if (!Mathf.Approximately(0, movement.y))
+        {
+            _psa.Front(movement.y < 0);
+        }
+
+        if (!Mathf.Approximately(0, movement.x))
+        {
+            _psa.Flip(movement.x < 0);
+        }
 
         if (!IsInLight())
         {
@@ -110,6 +121,7 @@ public class HA2CharacterController : MonoBehaviour
     {
         inventory = GetComponent<InventoryManager>();
         playerLight = GetComponentInChildren<Light2D>();
+        _psa = GetComponent<PlayerSpriteAnimator>();
 
         CandleMicrophone.OnBlow += OnBlow;
         sanityRechargeDelayTimer = sanityRechargeDelay;
@@ -171,6 +183,7 @@ public class HA2CharacterController : MonoBehaviour
         }
 
         isLightOn = on;
+        _psa.CandleOn(on);
     }
 
     public void TakeDamage()
