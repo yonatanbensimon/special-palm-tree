@@ -8,6 +8,8 @@ public class BearTrapController : MonoBehaviour
     public Sprite beartrapSet;
     public Sprite beartrapSetHighlighted;
 
+    [SerializeField] private AudioClip snapClip;
+
     SpriteRenderer spriteRenderer;
 
     public bool isSet = false;
@@ -36,6 +38,7 @@ public class BearTrapController : MonoBehaviour
         if (isSet && collision.gameObject.TryGetComponent<HorseAI>(out var horse))
         {
             horse.TakeDamage();
+            AudioSource.PlayClipAtPoint(snapClip, horse.transform.position);
             isSet = false;
             SetHighlight(isHighlighted);
             // Destroy Beartrap if we want
