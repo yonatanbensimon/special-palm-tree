@@ -30117,6 +30117,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5898007082073547913, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
+      propertyPath: candleOn
+      value: 
+      objectReference: {fileID: 8300000, guid: 59e02774074845940ae70b045bbae489, type: 3}
+    - target: {fileID: 5898007082073547913, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
       propertyPath: sanityLossModifier
       value: 0.05
       objectReference: {fileID: 0}

@@ -85,7 +85,7 @@ public class PlayerSpriteAnimator : MonoBehaviour
 
         spriteRenderer.sprite = array[_frameIndex % array.Length];
         Vector3 flippedScale = spriteRenderer.transform.localScale;
-        flippedScale.x = _isFlip ^ !_isFront ? -1.0f : 1.0f * Mathf.Abs(flippedScale.x);
+        flippedScale.x = (_isFlip ^ !_isFront) ? -1.0f : 1.0f * Mathf.Abs(flippedScale.x);
         spriteRenderer.transform.localScale = flippedScale;
     }
 

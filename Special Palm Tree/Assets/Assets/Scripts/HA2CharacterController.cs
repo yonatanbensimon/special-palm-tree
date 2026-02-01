@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 
 public class HA2CharacterController : MonoBehaviour
@@ -125,9 +126,25 @@ public class HA2CharacterController : MonoBehaviour
             }
         }
 
-        float volumeT = Mathf.InverseLerp(1.0f, 0.0f, sanity);
+        float volumeT = Mathf.InverseLerp(1.0f, 0.4f, sanity);
         float volume = Mathf.Lerp(0.4f, 1.0f, volumeT);
-        heartbeat.volume = volume;
+        heartbeat.volume = Mathf.Clamp(volume, 0.0f, 1.0f);
+
+        if (sanity <= 0.0f)
+        {
+            if (PersistentGameData.Instance != null)
+            {
+                PersistentGameData.Instance.accessories.Clear();
+            }
+
+            var gd = HUD.Data;
+            gd.playerHealth = 3;
+            gd.playerSanity = 1.0f;
+            gd.horseHealth = 1.0f;
+            HUD.Data = gd;
+            SceneManager.LoadScene("insanity_scene");
+        }
+
     }
 
     void Start()

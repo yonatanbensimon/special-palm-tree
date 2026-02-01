@@ -111,7 +111,7 @@ MonoBehaviour:
   beartrapSet: {fileID: 21300000, guid: 66760e91f8e6ef04b90b59f751c13fd9, type: 3}
   beartrapSetHighlighted: {fileID: 21300000, guid: f0920be20dbd9aa4b9ea9f5c31cb9ff0, type: 3}
   snapClip: {fileID: 8300000, guid: 0c564d2af30b992489ab828b9e18a99d, type: 3}
-  placeTrap: {fileID: 8300000, guid: 7239f584465b3ae4081d003f17ec2662, type: 3}
+  placeTrap: {fileID: 8300000, guid: 192ab79a9b1570d4fa4171eee8a46f99, type: 3}
   isSet: 1
   isHighlighted: 0
 --- !u!58 &2154509615634101652
