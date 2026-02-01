@@ -30,9 +30,46 @@ public class HorseAI : MonoBehaviour
     public int maxHealth = 5;
     public int health = 5;
 
+    private HorseVisuals visuals;
+
+    private bool isRetreating = false;
+
+    public void Retreat()
+    {
+        isRetreating = true;
+        chasingTImer = 0; 
+        
+        Transform furthestCandle = FindFurthestCandle();
+        if (furthestCandle != null)
+        {
+            agent.isStopped = false;
+            agent.speed = horseSpeed; 
+            agent.SetDestination(furthestCandle.position);
+        }
+        
+        StartCoroutine(ResetRetreat(5f)); //Run away for only five seconds
+    }
+
+    private Transform FindFurthestCandle()
+    {
+        LightController[] allCandles = Object.FindObjectsByType<LightController>(FindObjectsSortMode.None);
+        if (allCandles.Length == 0) return null;
+
+        return allCandles
+            .OrderByDescending(c => Vector2.Distance(transform.position, c.transform.position))
+            .First().transform;
+    }
+
+    private IEnumerator ResetRetreat(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        isRetreating = false;
+    }
+
     void Awake()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        visuals = GetComponent<HorseVisuals>();
 
         if (player == null)
     {
@@ -53,7 +90,14 @@ public class HorseAI : MonoBehaviour
 
     void Update()
     {
+        if (isRetreating) 
+        {
+            UpdateSpriteDirection();
+            return; 
+        }
+
         HandlePlayerDetection();
+        UpdateSpriteDirection();
 
         if (isOnALight) return;
         
@@ -71,6 +115,30 @@ public class HorseAI : MonoBehaviour
             HandleCandleHunting();
         }
     }
+
+    void UpdateSpriteDirection()
+{
+    Vector2 velocity = agent.velocity;
+
+    if (velocity.magnitude < 0.1f) return;
+
+    if (Mathf.Abs(velocity.x) > Mathf.Abs(velocity.y))
+    {
+        visuals.sideHorse.SetActive(true);
+        visuals.upHorse.SetActive(false);
+
+        float flipX = velocity.x > 0 ? 1f : -1f * Mathf.Abs(visuals.sideHorse.transform.localScale.x);
+        visuals.sideHorse.transform.localScale = new Vector3(flipX, visuals.sideHorse.transform.localScale.y, 1f);
+    }
+    else
+    {
+        visuals.sideHorse.SetActive(false);
+        visuals.upHorse.SetActive(true);
+
+        float flipY = velocity.y > 0 ? 1f : -1f * Mathf.Abs(visuals.upHorse.transform.localScale.x);
+        visuals.upHorse.transform.localScale = new Vector3(flipY,visuals.upHorse.transform.localScale.y, 1f);
+    }
+}
 
     private void Start()
     {
@@ -225,7 +293,7 @@ public class HorseAI : MonoBehaviour
         gd.horseHealth = health/maxHealth;
         HUD.Data = gd;
 
-        if (health < 0)
+        if (health <= 0)
         {
             Die();
         }
@@ -234,6 +302,19 @@ public class HorseAI : MonoBehaviour
     void Die()
     {
         print("WTF, you killed Charlotte Jr...");
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (collision.gameObject.TryGetComponent<HA2CharacterController>(out var playerController))
+            {
+                playerController.TakeDamage();
+            }
+
+            Retreat();
+        }
     }
 
     // Visual aid in the editor to see the detection range
