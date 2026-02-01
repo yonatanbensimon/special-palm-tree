@@ -294,11 +294,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4656245222263803892, guid: 370c9115809d14d2395194acfaafd744, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.853
+      value: 6.61
       objectReference: {fileID: 0}
     - target: {fileID: 4656245222263803892, guid: 370c9115809d14d2395194acfaafd744, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.187
+      value: 2.439
       objectReference: {fileID: 0}
     - target: {fileID: 4656245222263803892, guid: 370c9115809d14d2395194acfaafd744, type: 3}
       propertyPath: m_LocalPosition.z
@@ -535,7 +535,7 @@ GameObject:
   - component: {fileID: 871767066}
   - component: {fileID: 871767065}
   - component: {fileID: 871767070}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1487,13 +1487,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8120813388616607974, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8578535359722871376, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8578535359722871376, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8578535359722871376, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8578535359722871376, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -3282,6 +3294,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29557ca4bb3d3470e9774ce0e28a9e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HorseAI
+  detectionRadius: 1
+  chaseTime: 2
+  player: {fileID: 0}
+  horseSpeed: 2.5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &2145423979
 GameObject:
   m_ObjectHideFlags: 0
@@ -3294,7 +3316,7 @@ GameObject:
   - component: {fileID: 2145423981}
   - component: {fileID: 2145423980}
   - component: {fileID: 2145423983}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
