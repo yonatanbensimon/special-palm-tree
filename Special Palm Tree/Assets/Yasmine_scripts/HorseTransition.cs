@@ -45,6 +45,7 @@ public class HorseTransition : MonoBehaviour
         Color overlayColor = blackOverlay.color;
         blackOverlay.gameObject.SetActive(true);
         redEyes.SetParent(blackOverlay.gameObject.transform);
+        PersistentGameData.Instance.accessories = accessoryManager.currentAccessories;
 
         while (timer < fadeDuration)
         {
@@ -53,6 +54,7 @@ public class HorseTransition : MonoBehaviour
             blackOverlay.color = overlayColor;
             yield return null;
         }
-        // SceneManager.LoadScene(gameSceneName);
+        
+        SceneManager.LoadScene(gameSceneName);
     }
 }
