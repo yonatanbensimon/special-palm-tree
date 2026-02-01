@@ -15,6 +15,9 @@ public class LightController : MonoBehaviour
     public Sprite unlitSprite;
     public Sprite unlitHighlightedSprite;
 
+    [SerializeField] AudioClip candleOn;
+    [SerializeField] AudioClip candleOff;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -81,5 +84,14 @@ public class LightController : MonoBehaviour
         }
 
         isOn = on;
+
+        if (isOn)
+        {
+            AudioSource.PlayClipAtPoint(candleOn, transform.position);
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(candleOff, transform.position);
+        }
     }
 }

@@ -9,6 +9,7 @@ public class BearTrapController : MonoBehaviour
     public Sprite beartrapSetHighlighted;
 
     [SerializeField] private AudioClip snapClip;
+    [SerializeField] private AudioClip placeTrap;
 
     SpriteRenderer spriteRenderer;
 
@@ -18,6 +19,10 @@ public class BearTrapController : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (isSet)
+        {
+            AudioSource.PlayClipAtPoint(placeTrap, transform.position);
+        }
     }
 
     public void Collect(InventoryManager inventory)

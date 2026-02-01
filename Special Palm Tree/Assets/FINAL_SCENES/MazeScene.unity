@@ -30116,6 +30116,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5898007082073547913, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
+      propertyPath: sanityLossModifier
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5898007082073547913, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
+      propertyPath: sanityRechargeDelay
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5898007082073547913, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
+      propertyPath: sanityRechargeModifier
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 8578535359722871376, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
       propertyPath: m_Name
       value: Player

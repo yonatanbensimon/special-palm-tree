@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4140726014344218575}
   - component: {fileID: 3674310664815138919}
   m_Layer: 0
-  m_Name: BearTrap
+  m_Name: BearTrap.bk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
