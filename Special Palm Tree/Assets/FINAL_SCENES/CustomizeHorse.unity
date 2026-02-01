@@ -3592,7 +3592,7 @@ MonoBehaviour:
   EvilHorseImage: {fileID: 722768464}
   blackOverlay: {fileID: 2078530169}
   fadeDuration: 1
-  gameSceneName: GameScene
+  gameSceneName: MazeScene
   accessoryManager: {fileID: 210585235}
   redEyes: {fileID: 1067183188}
 --- !u!1 &2078530167
