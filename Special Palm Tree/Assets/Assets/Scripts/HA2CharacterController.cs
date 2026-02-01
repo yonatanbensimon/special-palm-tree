@@ -6,8 +6,12 @@ using UnityEngine.Rendering.Universal;
 
 public class HA2CharacterController : MonoBehaviour
 {
+    [Header("Calibration")]
     public float playerSpeed = 4f;
-
+    public float sanityLossModifier = 1.0f;
+    public float sanityRechargeModifier = 1.0f;
+    public float sanityRechargeDelay = 1.0f;
+    
     private Vector2 moveInput;
     private LightController nearbyLight;
     private BearTrapController nearbyBear;
@@ -20,9 +24,7 @@ public class HA2CharacterController : MonoBehaviour
 
     int health;
     float sanity = 1.0f;
-    public float sanityLossModifier = 1.0f;
-    public float sanityRechargeModifier = 1.0f;
-    public float sanityRechargeDelay = 1.0f;
+    
     float sanityRechargeDelayTimer;
 
 

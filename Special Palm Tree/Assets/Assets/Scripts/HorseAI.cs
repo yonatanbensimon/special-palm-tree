@@ -7,14 +7,19 @@ using System.Linq;
 
 public class HorseAI : MonoBehaviour
 {
+    [Header("Calibration")]
+    public float detectionRadius = 3f;
+    public float chaseTime = 2f;    
+    public float horseSpeed = 3.5f; 
+    public float chasingHorseSpeed = 4.5f;
+
     private UnityEngine.AI.NavMeshAgent agent;
     private LightController targetLight;
     private bool isOnALight = false;
 
-    public float detectionRadius = 3f;
-    public float chaseTime = 2f;
+    
     public Transform player;
-    public float horseSpeed = 3.5f; 
+    
 
     private float chasingTImer = 0f;
 
@@ -53,11 +58,13 @@ public class HorseAI : MonoBehaviour
 
         if (chasingTImer > 0)
         {
+            agent.speed = chasingHorseSpeed;
             agent.isStopped = false;
             agent.SetDestination(player.position);
             targetLight = null;
         } else
         {
+            agent.speed = horseSpeed;
             HandleCandleHunting();
         }
     }
@@ -115,8 +122,7 @@ public class HorseAI : MonoBehaviour
         {
             if (targetLight == null)
             {
-               //HERE IS COLLISION WITH THE PLAYER
-               print("player collided");
+               print("arrived at previous destinatiom");
             }
             else
             {
