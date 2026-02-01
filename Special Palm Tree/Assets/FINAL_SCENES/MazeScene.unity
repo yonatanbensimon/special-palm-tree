@@ -224,6 +224,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7246286476283434129, guid: b1c159ab7f0df93459d71ab02647179f, type: 3}
+      propertyPath: _threshold
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7756233568361562280, guid: b1c159ab7f0df93459d71ab02647179f, type: 3}
       propertyPath: m_Name
       value: CandleMicrophone
