@@ -28,6 +28,10 @@ public class HA2CharacterController : MonoBehaviour
     
     float sanityRechargeDelayTimer;
 
+    public float invulnerabilityDuration = 1.0f;
+    private bool isInvulnerable = false;
+    private SpriteRenderer playerSprite;
+
 
     public void OnMove(InputValue value)
     {
@@ -128,6 +132,9 @@ public class HA2CharacterController : MonoBehaviour
         isLightOn = true;
         sanity = 1.0f;
         HUD.Refresh();
+
+        playerSprite = GetComponentInChildren<SpriteRenderer>(); 
+        health = 3;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -188,6 +195,8 @@ public class HA2CharacterController : MonoBehaviour
 
     public void TakeDamage()
     {
+        if (isInvulnerable) return;
+
         health--;
         var gd = HUD.Data;
         gd.playerHealth = health;
@@ -196,7 +205,27 @@ public class HA2CharacterController : MonoBehaviour
         if (health <= 0)
         {
             Die();
+        } else
+        {
+            StartCoroutine(InvulnerabilityRoutine());
         }
+    }
+
+    private IEnumerator InvulnerabilityRoutine()
+    {
+        isInvulnerable = true;
+        
+        float elapsed = 0;
+        while (elapsed < invulnerabilityDuration)
+        {
+            playerSprite.enabled = !playerSprite.enabled;
+            
+            yield return new WaitForSeconds(0.1f);
+            elapsed += 0.1f;
+        }
+
+        playerSprite.enabled = true;
+        isInvulnerable = false;
     }
 
     public void Die()
