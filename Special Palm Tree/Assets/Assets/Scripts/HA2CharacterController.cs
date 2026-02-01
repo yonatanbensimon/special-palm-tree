@@ -82,7 +82,7 @@ public class HA2CharacterController : MonoBehaviour
     public void OnPlaceTrap(InputValue value)
     {
         if (!value.isPressed) { return; }
-        if (nearbyLight == null || !nearbyLight.isOn) { return; }
+        // if (nearbyLight == null || !nearbyLight.isOn) { return; }
         if (inventory.UseTrap())
         {
             Instantiate(beartrapPrefab, transform.position, transform.rotation);
