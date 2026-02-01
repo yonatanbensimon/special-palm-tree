@@ -16,11 +16,12 @@ public class HA2CharacterController : MonoBehaviour
     private LightController nearbyLight;
     private BearTrapController nearbyBear;
     [SerializeField] GameObject beartrapPrefab;
+    private PlayerSpriteAnimator _psa;
 
     private InventoryManager inventory;
     private Light2D playerLight;
     [SerializeField] private bool isLightOn = true;
-    public float brightLight = 1.0f;
+    public float brightLight = 1.5f;
 
     int health;
     float sanity = 1.0f;
@@ -84,6 +85,16 @@ public class HA2CharacterController : MonoBehaviour
     {
         Vector3 movement = new Vector3(moveInput.x, moveInput.y, 0);
         transform.position += movement * playerSpeed * Time.deltaTime;
+        _psa.Running(!Mathf.Approximately(0, movement.sqrMagnitude));
+        if (!Mathf.Approximately(0, movement.y))
+        {
+            _psa.Front(movement.y < 0);
+        }
+
+        if (!Mathf.Approximately(0, movement.x))
+        {
+            _psa.Flip(movement.x < 0);
+        }
 
         if (!IsInLight())
         {
@@ -110,6 +121,7 @@ public class HA2CharacterController : MonoBehaviour
     {
         inventory = GetComponent<InventoryManager>();
         playerLight = GetComponentInChildren<Light2D>();
+        _psa = GetComponent<PlayerSpriteAnimator>();
 
         CandleMicrophone.OnBlow += OnBlow;
         sanityRechargeDelayTimer = sanityRechargeDelay;
@@ -122,10 +134,13 @@ public class HA2CharacterController : MonoBehaviour
     {
         if (other.TryGetComponent<LightController>(out var light))
         {
+            if (nearbyLight && nearbyLight != light) nearbyLight.SetHighlight(false);
             nearbyLight = light;
             nearbyLight.SetHighlight(true);
         } else if (other.TryGetComponent<BearTrapController>(out var bear)){
+            if (nearbyBear && nearbyBear != bear) nearbyBear.SetHighlight(false);
             nearbyBear = bear;
+            nearbyBear.SetHighlight(true);
         }
     }
 
@@ -142,6 +157,7 @@ public class HA2CharacterController : MonoBehaviour
         {
             if (nearbyBear == bear)
             {
+                nearbyBear.SetHighlight(false);
                 nearbyBear = null;
             }
         }
@@ -167,6 +183,7 @@ public class HA2CharacterController : MonoBehaviour
         }
 
         isLightOn = on;
+        _psa.CandleOn(on);
     }
 
     public void TakeDamage()
