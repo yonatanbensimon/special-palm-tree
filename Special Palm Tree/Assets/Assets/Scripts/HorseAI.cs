@@ -112,7 +112,7 @@ public class HorseAI : MonoBehaviour
             .Where(l => l.isOn && !l.isExtinguished)
             .ToList();
 
-        CharacterController playerController = player.GetComponent<CharacterController>();
+        HA2CharacterController playerController = player.GetComponent<HA2CharacterController>();
         
         Vector3 bestTargetPos = Vector3.zero;
         float closestDistance = float.MaxValue;

@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
 
-public class CharacterController : MonoBehaviour
+public class HA2CharacterController : MonoBehaviour
 {
     public float playerSpeed = 4f;
     
