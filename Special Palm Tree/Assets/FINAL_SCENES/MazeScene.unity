@@ -30013,7 +30013,7 @@ PrefabInstance:
     - target: {fileID: 5898007082073547913, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
       propertyPath: beartrapPrefab
       value: 
-      objectReference: {fileID: 5617403010752962741, guid: eb7d55eef5dec304eb908a9bc5f1e63b, type: 3}
+      objectReference: {fileID: 7144153153874708586, guid: 0ab17bb89bae5274c83b059f2eefd49c, type: 3}
     - target: {fileID: 8578535359722871376, guid: e3b655b7cc2c1423ca0d04a24ab41cb8, type: 3}
       propertyPath: m_Name
       value: Player
