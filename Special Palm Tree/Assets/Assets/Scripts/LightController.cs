@@ -8,7 +8,7 @@ public class LightController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
-    public float brightLight = 5f;
+    public float brightLight = 1.5f;
     public bool isExtinguished = false;
     public bool isOn = false;
 
