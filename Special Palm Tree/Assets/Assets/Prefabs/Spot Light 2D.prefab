@@ -98,6 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d0ddfd7536d489e86460134f448a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightController
+  brightLight: 5
+  isExtinguished: 0
+  isOn: 0
 --- !u!58 &5285031548556313224
 CircleCollider2D:
   m_ObjectHideFlags: 0
