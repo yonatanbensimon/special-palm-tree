@@ -314,7 +314,7 @@ public class HorseAI : MonoBehaviour
         gd.playerSanity = 1f;
         HUD.Data = gd;
         
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("Win_Scene");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
