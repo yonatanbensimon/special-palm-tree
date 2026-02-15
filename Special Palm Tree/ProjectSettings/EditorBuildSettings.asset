@@ -6,8 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/FINAL_SCENES/TitlePageScene.unity
+    guid: 0888495bbdc804311af3eab74e24662a
+  - enabled: 1
+    path: Assets/FINAL_SCENES/CustomizeHorse.unity
+    guid: 51437232cd798ea449eb8cac75343d18
+  - enabled: 1
+    path: Assets/FINAL_SCENES/MazeScene.unity
+    guid: 13c623c23b0bdd64eb48f2f10e063cf3
+  - enabled: 1
+    path: Assets/FINAL_SCENES/Game_Over_Scene.unity
+    guid: e49e82ec13fa047ed9caee545b61a100
+  - enabled: 1
+    path: Assets/FINAL_SCENES/Win_Scene.unity
+    guid: 643632fcd924b4b23a2f7fc63d887605
+  - enabled: 1
+    path: Assets/FINAL_SCENES/insanity_scene.unity
+    guid: 7829600ab29064dde97fdc616a1e98c3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

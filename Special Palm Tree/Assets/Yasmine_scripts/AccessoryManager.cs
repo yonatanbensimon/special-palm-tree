@@ -7,17 +7,29 @@ public class AccessoryManager : MonoBehaviour
     public GameObject hat;
     public GameObject unicorn;
 
-    [Header("Bodywear")]
+    [Header("BodywearUpper")]
     public GameObject chain;
     public GameObject ribbonBlack;
+    [Header("BodywearLower")]
     public GameObject tutu;
     public Dictionary<string, string> currentAccessories = new Dictionary<string, string>();
+
+    [SerializeField] AudioClip clickClip;
+
     public void ToggleRibbonBlack()
     {
         bool isActive = ribbonBlack.activeSelf;
-        DisableAllBodywear();
+        DisableUpperBodywear();
         ribbonBlack.SetActive(!isActive);
-        currentAccessories["Bodywear"] = !isActive ? "RibbonImage" : "None";
+        currentAccessories["BodywearUpper"] = !isActive ? "RibbonImage" : "None";
+        AudioSource.PlayClipAtPoint(clickClip, Vector3.zero);
+    }
+
+    void Awake()
+    {
+        currentAccessories["Headware"] = "None";
+        currentAccessories["BodywearUpper"] = "None";
+        currentAccessories["BodywearLower"] = "None";
     }
 
     public void ToggleUnicorn()
@@ -26,6 +38,7 @@ public class AccessoryManager : MonoBehaviour
         DisableAllHeadware();
         unicorn.SetActive(!isActive);
         currentAccessories["Headwear"] = !isActive ? "UnicornImage" : "None";
+        AudioSource.PlayClipAtPoint(clickClip, Vector3.zero);
     }
 
     public void ToggleHat()
@@ -34,29 +47,34 @@ public class AccessoryManager : MonoBehaviour
        DisableAllHeadware();
        hat.SetActive(!isActive);
        currentAccessories["Headwear"] = !isActive ? "HatImage" : "None";
+        AudioSource.PlayClipAtPoint(clickClip, Vector3.zero);
     }
     public void ToggleChain()
     {
         bool isActive = chain.activeSelf;
-        DisableAllBodywear();
+        DisableUpperBodywear();
         chain.SetActive(!isActive);
-        currentAccessories["Bodywear"] = !isActive ? "ChainImage" : "None";
+        currentAccessories["BodywearUpper"] = !isActive ? "ChainImage" : "None";
+        AudioSource.PlayClipAtPoint(clickClip, Vector3.zero);
     }
     public void ToggleTutu()
     {
         bool isActive = tutu.activeSelf;
         tutu.SetActive(!tutu.activeSelf);
-        currentAccessories["Bodywear"] = !isActive ? "TutuImage" : "None";
+        currentAccessories["BodywearLower"] = !isActive ? "TutuImage" : "None";
+        AudioSource.PlayClipAtPoint(clickClip, Vector3.zero);
     }
 
     void DisableAllHeadware()
     {
         hat.SetActive(false);
         unicorn.SetActive(false);
+        AudioSource.PlayClipAtPoint(clickClip, Vector3.zero);
     }
-    void DisableAllBodywear()
+    void DisableUpperBodywear()
     {
         chain.SetActive(false);
         ribbonBlack.SetActive(false);
+        AudioSource.PlayClipAtPoint(clickClip, Vector3.zero);
     }
 }
